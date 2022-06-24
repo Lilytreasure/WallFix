@@ -15,6 +15,7 @@ import com.example.walpapergrab.Models.Photo;
 import com.example.walpapergrab.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CuratedAdapter extends  RecyclerView.Adapter<curatedViewHolder> {
@@ -24,7 +25,7 @@ public class CuratedAdapter extends  RecyclerView.Adapter<curatedViewHolder> {
 
     public CuratedAdapter(Context context, List<Photo> list, OnRecyclerClickListener listener) {
         this.context = context;
-        this.list = list;
+        this.list =  list;
         this.listener = listener;
     }
 
@@ -37,6 +38,8 @@ public class CuratedAdapter extends  RecyclerView.Adapter<curatedViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull curatedViewHolder holder, int position) {
         Picasso.get().load(list.get(position).getSrc().getMedium()).placeholder(R.drawable.defaultpic).into(holder.imageview_list);
+
+
         holder.home_list_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

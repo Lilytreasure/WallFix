@@ -20,25 +20,30 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements OnRecyclerClickListener {
+public class  MainActivity extends AppCompatActivity implements OnRecyclerClickListener {
     //wallpaper application that downloads and saves wallper on the device
     //install retrofit dependencies
     //Gson converter factory
     //picasso dependency to render image in the image view
     //Retrofit to handle the http requests
     //create Api, api interface, model class, and the adapter
+    //items duplicating by default
+
+
+
+
     RecyclerView recyclerview_home;
     CuratedAdapter adapter;
     RequestManager manager;
     ProgressDialog  dialog;
     FloatingActionButton fab_next,fab_previous;
     int page;
+    //cardview duplicating itmes
 
 
 
 
 
-    @SuppressLint("CutPasteId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerClickLi
 
         fab_next=findViewById(R.id.fab_next);
         fab_previous=findViewById(R.id.fab_previous);
+        recyclerview_home=findViewById(R.id.recyclerview_home);
 
         dialog=new ProgressDialog(this);
         dialog.setTitle("Loading data...");
@@ -102,11 +108,12 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerClickLi
     };
 
     private void showData(ArrayList<Photo> photos) {
-        recyclerview_home=findViewById(R.id.recycle_home);
+
         recyclerview_home.setHasFixedSize(true);
         recyclerview_home.setLayoutManager(new GridLayoutManager(this,2));
         adapter=new CuratedAdapter(MainActivity.this,photos,this);
         recyclerview_home.setAdapter(adapter);
+
 
 
     }
