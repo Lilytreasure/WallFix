@@ -111,6 +111,7 @@ public class  MainActivity extends AppCompatActivity implements OnRecyclerClickL
 
     @Override
     public void onClick(Photo photo) {
+        //display the name of the photographer
         Toast.makeText(MainActivity.this, photo.getPhotographer(), Toast.LENGTH_SHORT).show();
 
     }
