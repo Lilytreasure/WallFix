@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -18,9 +19,10 @@ import com.example.walpapergrab.Models.CuratedApiResponse;
 import com.example.walpapergrab.Models.Photo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class  MainActivity extends AppCompatActivity implements OnRecyclerClickListener {
+public class  MainActivity extends AppCompatActivity implements OnRecyclerClickListener, Serializable {
 
 
     RecyclerView recyclerview_home;
@@ -111,8 +113,12 @@ public class  MainActivity extends AppCompatActivity implements OnRecyclerClickL
 
     @Override
     public void onClick(Photo photo) {
-        //display the name of the photographer
-        Toast.makeText(MainActivity.this, photo.getPhotographer(), Toast.LENGTH_SHORT).show();
+        //start a new activity to download or set image as wallpaper
+        startActivity(new Intent(MainActivity.this,WallpaperActivity.class)
+                .putExtra("photo",photo));
+       // dialog.show();
+
 
     }
+
 }
