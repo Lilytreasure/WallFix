@@ -21,15 +21,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 public class  MainActivity extends AppCompatActivity implements OnRecyclerClickListener {
-    //wallpaper application that downloads and saves wallper on the device
-    //install retrofit dependencies
-    //Gson converter factory
-    //picasso dependency to render image in the image view
-    //Retrofit to handle the http requests
-    //create Api, api interface, model class, and the adapter
-    //items duplicating by default
-
-
 
 
     RecyclerView recyclerview_home;
@@ -38,7 +29,7 @@ public class  MainActivity extends AppCompatActivity implements OnRecyclerClickL
     ProgressDialog  dialog;
     FloatingActionButton fab_next,fab_previous;
     int page;
-    //cardview duplicating itmes
+
 
 
 
