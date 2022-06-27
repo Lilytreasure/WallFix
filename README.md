@@ -1,8 +1,8 @@
-# Walpaperapp
+# Wallpaperapp
 
 Created for fun 
 
-This is  an application that allows you to set walpapers from a wide range of wallpapers fetched from an API
+This is  an application that allows you to set wallpapers from a wide range of wallpapers fetched from an API
 
 You will be aple to search  the image of your choice and set in your phone
 You will also be able to dowload images and save them in your device
