@@ -1,22 +1,28 @@
 package com.example.walpapergrab;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.walpapergrab.Adapters.CuratedAdapter;
 import com.example.walpapergrab.Api.RequestManager;
 import com.example.walpapergrab.Listeners.CuratedResponseListener;
 import com.example.walpapergrab.Listeners.OnRecyclerClickListener;
+import com.example.walpapergrab.Listeners.SearchResponseListener;
 import com.example.walpapergrab.Models.CuratedApiResponse;
 import com.example.walpapergrab.Models.Photo;
+import com.example.walpapergrab.Models.SearchApiResponse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.Serializable;
@@ -31,6 +37,9 @@ public class  MainActivity extends AppCompatActivity implements OnRecyclerClickL
     ProgressDialog  dialog;
     FloatingActionButton fab_next,fab_previous;
     int page;
+    Toolbar toolbar;
+    SearchView searchView;
+
 
 
 
@@ -41,18 +50,41 @@ public class  MainActivity extends AppCompatActivity implements OnRecyclerClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+       // toolbar=findViewById(R.id.ToolbarMain);
+       // setSupportActionBar(toolbar);
 
         fab_next=findViewById(R.id.fab_next);
         fab_previous=findViewById(R.id.fab_previous);
         recyclerview_home=findViewById(R.id.recyclerview_home);
+        searchView=findViewById(R.id.searchView);
+        
 
         dialog=new ProgressDialog(this);
         dialog.setTitle("Loading data...");
         manager=new RequestManager(this);
         manager.getCuratedWallpapers(listener,"1");
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+               manager.searchCuratedWallpapers(searchResponseListener,"1",query);
+               dialog.show();
+
+
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
 
         fab_next.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 String next_page=String.valueOf(page+1);
@@ -120,5 +152,23 @@ public class  MainActivity extends AppCompatActivity implements OnRecyclerClickL
 
 
     }
+    public final SearchResponseListener searchResponseListener=new SearchResponseListener() {
+        @Override
+        public void onFetch(SearchApiResponse response, String message) {
+            dialog.dismiss();
+            if(response.getPhotos().isEmpty()){
+                Toast.makeText(MainActivity.this, "Image not found!!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            showData(response.getPhotos());
+        }
+
+        @Override
+        public void onError(String message) {
+            dialog.dismiss();
+            Toast.makeText(MainActivity.this,message, Toast.LENGTH_SHORT).show();
+
+        }
+    };
 
 }

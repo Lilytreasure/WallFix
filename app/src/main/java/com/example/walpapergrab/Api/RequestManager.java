@@ -4,7 +4,9 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.example.walpapergrab.Listeners.CuratedResponseListener;
+import com.example.walpapergrab.Listeners.SearchResponseListener;
 import com.example.walpapergrab.Models.CuratedApiResponse;
+import com.example.walpapergrab.Models.SearchApiResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,8 +22,10 @@ public class RequestManager {
             .addConverterFactory(GsonConverterFactory.create()).build();
 
     public RequestManager(Context context) {
+
         this.context = context;
     }
+
 
     public void getCuratedWallpapers(CuratedResponseListener listener,String page){
         CallWallpaperList callWallpaperList=retrofit.create(CallWallpaperList.class);
@@ -48,4 +52,34 @@ public class RequestManager {
 
 
     }
+
+    public void searchCuratedWallpapers(SearchResponseListener listener, String page,String query){
+        CallWallpaperListSearch callWallpaperListSearch=retrofit.create(CallWallpaperListSearch.class);
+        Call<SearchApiResponse> call =callWallpaperListSearch.searchWallpapers(query,page,"20");
+
+
+        call.enqueue(new Callback<SearchApiResponse>() {
+            @Override
+            public void onResponse(Call<SearchApiResponse> call, Response<SearchApiResponse> response) {
+                if(!response.isSuccessful()){
+                    Toast.makeText(context, "Error occurred!!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                listener.onFetch(response.body(),response.message());
+
+            }
+
+            @Override
+            public void onFailure(Call<SearchApiResponse> call, Throwable t) {
+                listener.onError(t.getMessage());
+
+            }
+        });
+
+
+    }
+
+
+
+
 }

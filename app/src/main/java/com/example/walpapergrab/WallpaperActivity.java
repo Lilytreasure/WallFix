@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
+import android.app.WallpaperManager;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,12 +23,17 @@ public class WallpaperActivity extends AppCompatActivity {
     ImageView imageview_wallpaper;
     FloatingActionButton fab_download, fab_wallpaper;
     Photo photo;
+    ProgressDialog dialog;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallpaper);
+        dialog=new ProgressDialog(this);
+
+        dialog.setTitle("setting wallpaper");
+
 
         imageview_wallpaper = findViewById(R.id.imageview_wallpaper);
         fab_download = findViewById(R.id.fab_download);
@@ -57,6 +65,29 @@ public class WallpaperActivity extends AppCompatActivity {
 
             }
 
+        });
+
+
+
+        fab_wallpaper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //dialog.show();
+                WallpaperManager wallpaperManager= WallpaperManager.getInstance(WallpaperActivity.this);
+                Bitmap bitmap=((BitmapDrawable)imageview_wallpaper.getDrawable()).getBitmap();
+                try{
+                    wallpaperManager.setBitmap(bitmap);
+                    Toast.makeText(WallpaperActivity.this, "Wallpaper set successful!!", Toast.LENGTH_SHORT).show();
+                    //dialog.dismiss();
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                    Toast.makeText(WallpaperActivity.this, "Error setting Wallpaper", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+            }
         });
 
     }
