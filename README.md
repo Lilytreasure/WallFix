@@ -18,6 +18,7 @@ Work in progress, for any question feel free to ask-if you would like me to add 
 
 
 ![Screenshot_20220627-163627](https://user-images.githubusercontent.com/78819932/175959459-7304abb9-22b4-47bb-9170-f4f2579907db.png)
+ <table align="center">
 
  <tr>
    
@@ -25,4 +26,5 @@ Work in progress, for any question feel free to ask-if you would like me to add 
     
     <td><img src="https://user-images.githubusercontent.com/78819932/175959300-fed6f820-b1af-4d0a-a71a-0f71caa0bc63.png" alt="saved" style="width:200px;height:400px;"></td>
   </tr>
+  </table>
 
