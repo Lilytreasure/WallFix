@@ -4,10 +4,10 @@ Created for fun
 
 This is  an application that allows you to set wallpapers from a wide range of wallpapers fetched from an API
 
-You will be aple to search  the image of your choice and set in your phone
-You will also be able to dowload images and save them in your device
+You will be aple to search  an image of your choice and set it  as a wallpaper in your android Device
+You will also be able to dowload images and save them in your device local storage
 
-Work in progress, for any question feel free to ask-if you would like me to add more features feel free
+Work in progress...
 
 
 
